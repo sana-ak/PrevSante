@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import pandas as pd
 import plotly.express as px
 import requests
@@ -91,10 +90,13 @@ if df.empty:
 # SPLIT BLOCS
 # ─────────────────────────────────────────────
 
-df_serie = df[df["bloc"] == "serie_temporelle_yoy"]
-df_top = df[df["bloc"] == "top_pathologies"]
-df_age = df[df["bloc"] == "depenses_par_age"]
-df_sexe = df[df["bloc"] == "depenses_par_sexe"]
+def get_block(df, bloc):
+    return df.loc[df["bloc"] == bloc].copy()
+
+df_serie = get_block(df, "serie_temporelle_yoy")
+df_top   = get_block(df, "top_pathologies")
+df_age   = get_block(df, "depenses_par_age")
+df_sexe  = get_block(df, "depenses_par_sexe")
 
 # ─────────────────────────────────────────────
 # KPI
@@ -341,7 +343,10 @@ with col1:
     </body>
     </html>"""
 
-    components.html(html, height=370)
+    with open("bilan.html", "w") as f:
+        f.write(html)
+
+    st.iframe("bilan.html", height=400)
 
 # ─────────────────────────────────────────────
 # TOP PATHOLOGIES
@@ -391,7 +396,7 @@ with col1:
 # ─────────────────────────────────────────────
 
 with col2:
-    st.markdown("**Dépenses par âge**")
+    st.markdown("**Répartition des dépenses par tranche d'âge**")
 
     if not df_age.empty:
         options = ["Total"] + list(df_age["patho"].unique())
@@ -403,14 +408,29 @@ with col2:
         if selected != "Total":
             df_age_work = df_age_work[df_age_work["patho"] == selected]
 
-        df_age_grouped = df_age_work.groupby("age", as_index=False)["depense"].sum()
+        age_order = ["0-19", "20-39", "40-59", "60-74", "75-89", "90+"]
+
+        df_age_grouped = (
+            df_age_work
+            .groupby("age", as_index=False)["depense"]
+            .sum()
+        )
+
+        df_age_grouped["age"] = pd.Categorical(
+            df_age_grouped["age"],
+            categories=age_order,
+            ordered=True
+        )
+
+        df_age_grouped = df_age_grouped.sort_values("age")
 
         fig = px.pie(
             df_age_grouped,
             names="age",
             values="depense",
             hole=0.4,
-            color_discrete_sequence=px.colors.sequential.Teal
+            color_discrete_sequence=px.colors.sequential.Teal,
+            category_orders={"age": age_order}
         )
 
         fig.update_layout(
@@ -435,7 +455,7 @@ with col2:
 # SEXE
 # ─────────────────────────────────────────────
 
-st.markdown("**Dépenses par sexe**")
+st.markdown("**Analyse comparative par sexe & pathologie**")
 
 def smart_wrap(text, width=12):
     words = text.split()
@@ -778,7 +798,10 @@ with col2:
     </div>
     </body></html>"""
 
-    components.html(html, height=700)
+    with open("widget.html", "w") as f:
+        f.write(html)
+
+    st.iframe("widget.html", height=700)
 
 # ─────────────────────────────────────────────
 # FOOTER

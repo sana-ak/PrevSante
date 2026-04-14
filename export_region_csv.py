@@ -121,12 +121,46 @@ def build_export(region, annee):
     top_pathologies.insert(2, "annee", annee)
 
     # ─── Bloc 3 : âge ──────────────────────────────
+
+    age_mapping = {
+        "00-04": "0-19",
+        "05-09": "0-19",
+        "10-14": "0-19",
+        "15-19": "0-19",
+
+        "20-24": "20-39",
+        "25-30": "20-39",
+        "30-34": "20-39",
+        "35-39": "20-39",
+
+        "40-44": "40-59",
+        "45-49": "40-59",
+        "50-54": "40-59",
+        "55-59": "40-59",
+
+        "60-64": "60-74",
+        "65-69": "60-74",
+        "70-74": "60-74",
+
+        "75-79": "75-89",
+        "80-84": "75-89",
+        "85-89": "75-89",
+
+        "90-94": "90+",
+        "95et+": "90+"
+    }
+
+    df_annee["age_group"] = df_annee["cla_age_5"].map(age_mapping)
+
+    df_annee = df_annee[df_annee["age_group"].notna()].copy()
+
     depenses_age = (
-        df_annee.groupby(["cla_age_5", "patho_niv1"])["montant_dep"]
+        df_annee
+        .groupby(["age_group", "patho_niv1"])["montant_dep"]
         .sum()
         .reset_index()
         .rename(columns={
-            "cla_age_5": "age",
+            "age_group": "age",
             "patho_niv1": "patho",
             "montant_dep": "depense"
         })
@@ -135,6 +169,16 @@ def build_export(region, annee):
     depenses_age.insert(0, "bloc", "depenses_par_age")
     depenses_age.insert(1, "region", region)
     depenses_age.insert(2, "annee", annee)
+
+    age_order = ["0-19", "20-39", "40-59", "60-74", "75-89", "90+"]
+
+    depenses_age["age"] = pd.Categorical(
+        depenses_age["age"],
+        categories=age_order,
+        ordered=True
+    )
+
+    depenses_age = depenses_age.sort_values(["age", "depense"], ascending=[True, False])
 
     # ─── Bloc 4 : sexe ─────────────────────────────
     sexe_labels = {1: "Homme", 2: "Femme"}
@@ -171,7 +215,7 @@ def build_export(region, annee):
 # ─────────────────────────────────────────────
 
 for region in regions:
-    print(f"\n🚀 Région {region}")
+    print(f"\nRégion {region}")
 
     for annee in years:
 
