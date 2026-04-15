@@ -29,14 +29,9 @@ st.markdown("""
 # PARAMÈTRES
 # ─────────────────────────────────────────────
 
-st.title("PrevSanté - Bilan santé prévention")
+st.title("PrevSanté - La prévention au coeur de la santé")
 
 REGIONS = {
-    1: "Guadeloupe",
-    2: "Martinique",
-    3: "Guyane",
-    4: "La Réunion",
-    6: "Mayotte",
     11: "Île-de-France",
     24: "Centre-Val de Loire",
     27: "Bourgogne-Franche-Comté",
@@ -49,14 +44,13 @@ REGIONS = {
     76: "Occitanie",
     84: "Auvergne-Rhône-Alpes",
     93: "Provence-Alpes-Côte d’Azur",
-    94: "Corse",
-    99: "France entière"
+    94: "Corse"
 }
 
 col_params1, col_params2, col_params3 = st.columns([2, 2, 4])
 
 with col_params1:
-    annee = st.selectbox("Année", [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023])
+    annee = st.selectbox("Année", [2019, 2020, 2021, 2022, 2023])
 
 with col_params2:
     region_label = st.selectbox(
@@ -67,7 +61,7 @@ with col_params2:
 # récupération du code région
 region = [k for k, v in REGIONS.items() if v == region_label][0]
 
-file_path = f"data_{region}_{annee}.csv"
+file_path = f"./datasets/data_{region}_{annee}.csv"
 
 # ─────────────────────────────────────────────
 # LOAD DATA
@@ -102,7 +96,7 @@ df_sexe  = get_block(df, "depenses_par_sexe")
 # KPI
 # ─────────────────────────────────────────────
 
-col1, col2, col3 = st.columns([1, 1, 2])
+col1, col2, col3 = st.columns([3, 3, 1])
 
 with col1:
     if not df_serie.empty:
@@ -110,8 +104,8 @@ with col1:
 
         st.metric(
             label=f"Dépenses {annee}",
-            value=f"{int(last['depense_totale']):,} €",
-            delta=f"{last['yoy_pct']}%"
+            value=f"{int(last['depense_totale']):,} €".replace(",", " "),
+            delta=f"{last['yoy_pct']:.2f}%"
         )
 
 # ─────────────────────────────────────────────
@@ -154,10 +148,9 @@ col1, col2 = st.columns(2)
 # ─────────────────────────────────────────────
 with col2:
     def format_region_title(label):
-        return f"Indice de Mortalité Prématurée ({label})"
-
+        return f"Taux de Mortalité Prématurée ({label})"
     st.markdown(f"**{format_region_title(region_label)}**")
-    st.markdown("sur l'année 2023, pour les décès survenus avant 65 ans")
+    st.markdown("Année 2023, décès survenus avant 65 ans (‰)")
 
     # état global
     if "selected_region" not in st.session_state:
@@ -171,16 +164,16 @@ with col2:
         df = df.rename(columns={
             "Unnamed: 0": "code_dep",
             "Département": "departement",
-            "Taux de mortalité standard. des 0-64 ans en 2024 (prématuré) (en ‰)": "taux_premature"
+            "Taux de mortalité standard. des 0-64 ans en 2024 (prématuré) (en ‰)": "mortalite_prematuree"
         })
 
         df["code_dep"] = df["code_dep"].astype(str)
 
-        df["taux_premature"] = (
-            df["taux_premature"].astype(str)
+        df["mortalite_prematuree"] = (
+            df["mortalite_prematuree"].astype(str)
             .str.replace(",", ".", regex=False)
         )
-        df["taux_premature"] = pd.to_numeric(df["taux_premature"], errors="coerce")
+        df["mortalite_prematuree"] = pd.to_numeric(df["mortalite_prematuree"], errors="coerce")
 
         return df
 
@@ -231,7 +224,7 @@ with col2:
     if st.session_state.selected_region is None:
 
         df_regions = df.groupby("region", as_index=False).agg({
-            "taux_premature": "mean"
+            "mortalite_prematuree": "mean"
         })
 
         fig = px.choropleth(
@@ -239,13 +232,8 @@ with col2:
             geojson=geojson_reg,
             locations="region",
             featureidkey="properties.nom",
-            color="taux_premature",
+            color="mortalite_prematuree",
             color_continuous_scale="Teal",
-        #     range_color=(
-        #         df["taux_premature"].min(),
-        #         df["taux_premature"].max()
-        # ),
-            # hover_name="region",
             title=None,
         )
 
@@ -263,14 +251,13 @@ with col2:
             geojson=geojson_dep,
             locations="code_dep",
             featureidkey="properties.code",
-            color="taux_premature",
+            color="mortalite_prematuree",
             color_continuous_scale="Teal",
             range_color=(
-            df["taux_premature"].min(),
-            df["taux_premature"].max()
+            df["mortalite_prematuree"].min(),
+            df["mortalite_prematuree"].max()
         ),
             hover_name="departement",
-            # title=f"{region}"
         )
 
         fig.update_geos(fitbounds="locations", visible=False)
@@ -286,9 +273,10 @@ with col1:
 
     priorities = [
         {"num": "01", "title": "Dépistage Cancer du Côlon",          "target": "Hommes/Femmes 50–74 ans",         "active": True},
-        {"num": "02", "title": "Vaccination Grippe/Covid",            "target": "Personnes 65+ ans & fragiles",    "active": False},
+        {"num": "02", "title": "Dépistage Cancer du sein",           "target": "Femmes a partir de 50 ans",        "active": True},
         {"num": "03", "title": "Suivi HTA & Risque Cardiovasculaire", "target": "Patients ALD 45+ ans",            "active": False},
         {"num": "04", "title": "Bilan de Santé Jeunes",               "target": "Étudiants & précaires 18–25 ans", "active": False},
+        {"num": "05", "title": "Vaccination Grippe/Covid",            "target": "Personnes 65+ ans & fragiles",    "active": False},
     ]
 
     items_html = ""
@@ -346,12 +334,14 @@ with col1:
     with open("bilan.html", "w") as f:
         f.write(html)
 
-    st.iframe("bilan.html", height=400)
+    st.iframe("bilan.html", height=(500))
 
 # ─────────────────────────────────────────────
 # TOP PATHOLOGIES
 # ─────────────────────────────────────────────
+
 with col1:
+    st.markdown("<div style='height:140px;'></div>", unsafe_allow_html=True)
     st.markdown("**Top 5 des groupes de pathologies les plus coûteux**")
 
     if not df_top.empty:
@@ -537,8 +527,9 @@ with col1:
     st.markdown("**Localisation des médecins généralistes**")
 
     # ─── Chargement des données ─────────────────────────────────────
-    BASE_DIR = Path(__file__).resolve().parent.parent
+    BASE_DIR = Path(__file__).resolve().parent
     CSV_PATH = BASE_DIR / "datasets" / "annuaire-des-entreprises-etablissements.csv"
+
 
     @st.cache_data(show_spinner="Chargement des données...")
     def load_medecins(path: Path) -> pd.DataFrame:

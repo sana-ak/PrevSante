@@ -1,0 +1,73 @@
+﻿bloc;region;annee;depense_totale;yoy_pct;patho;depense;age;sexe
+serie_temporelle_yoy;76;2015;4629744701.0;;;;;
+serie_temporelle_yoy;76;2016;4821513885.0;4.1421114204975185;;;;
+serie_temporelle_yoy;76;2017;5002194838.0;3.7473904941373037;;;;
+serie_temporelle_yoy;76;2018;5165395070.0;3.262572476390213;;;;
+serie_temporelle_yoy;76;2019;5337618659.0;3.3341803805144288;;;;
+serie_temporelle_yoy;76;2020;5458217347.0;2.2594099673391543;;;;
+serie_temporelle_yoy;76;2021;5991091149.0;9.76278092503744;;;;
+serie_temporelle_yoy;76;2022;6320661035.0;5.500999363947412;;;;
+serie_temporelle_yoy;76;2023;6758040930.0;6.919844183670887;;;;
+top_pathologies;76;2019;;;Cancers;1240819869.1386423;;
+top_pathologies;76;2019;;;Maladies cardioneurovasculaires;1186258270.475081;;
+top_pathologies;76;2019;;;Maladies psychiatriques;1069727822.8820467;;
+top_pathologies;76;2019;;;Maladies neurologiques;489923208.78834057;;
+top_pathologies;76;2019;;;Traitements psychotropes (hors pathologies);402506045.2519759;;
+depenses_par_age;76;2019;;;Maladies psychiatriques;91411836.13669154;0-19;
+depenses_par_age;76;2019;;;Maladies neurologiques;22183899.592078425;0-19;
+depenses_par_age;76;2019;;;Maladies inflammatoires ou rares ou infection VIH;13750281.058909198;0-19;
+depenses_par_age;76;2019;;;Maladies cardioneurovasculaires;10703921.78200002;0-19;
+depenses_par_age;76;2019;;;Cancers;5933028.047835546;0-19;
+depenses_par_age;76;2019;;;Traitements psychotropes (hors pathologies);3157989.8134761127;0-19;
+depenses_par_age;76;2019;;;Insuffisance rénale chronique terminale;706598.6596781545;0-19;
+depenses_par_age;76;2019;;;Traitements du risque vasculaire (hors pathologies);504856.0996706282;0-19;
+depenses_par_age;76;2019;;;Maladies psychiatriques;135605853.60735664;20-39;
+depenses_par_age;76;2019;;;Maladies inflammatoires ou rares ou infection VIH;42703226.48030928;20-39;
+depenses_par_age;76;2019;;;Cancers;36998751.95732199;20-39;
+depenses_par_age;76;2019;;;Maladies neurologiques;29817811.52388886;20-39;
+depenses_par_age;76;2019;;;Traitements psychotropes (hors pathologies);27450219.147907745;20-39;
+depenses_par_age;76;2019;;;Maladies cardioneurovasculaires;17499308.307309687;20-39;
+depenses_par_age;76;2019;;;Insuffisance rénale chronique terminale;12153496.946464255;20-39;
+depenses_par_age;76;2019;;;Traitements du risque vasculaire (hors pathologies);6139240.683730564;20-39;
+depenses_par_age;76;2019;;;Maladies psychiatriques;377645632.62323177;40-59;
+depenses_par_age;76;2019;;;Cancers;223393095.41424066;40-59;
+depenses_par_age;76;2019;;;Maladies cardioneurovasculaires;152943717.00495923;40-59;
+depenses_par_age;76;2019;;;Maladies inflammatoires ou rares ou infection VIH;120547814.19727972;40-59;
+depenses_par_age;76;2019;;;Traitements psychotropes (hors pathologies);108347391.53645417;40-59;
+depenses_par_age;76;2019;;;Traitements du risque vasculaire (hors pathologies);76571429.38117632;40-59;
+depenses_par_age;76;2019;;;Maladies neurologiques;72059711.1827314;40-59;
+depenses_par_age;76;2019;;;Insuffisance rénale chronique terminale;53418858.67166848;40-59;
+depenses_par_age;76;2019;;;Cancers;480341841.2629611;60-74;
+depenses_par_age;76;2019;;;Maladies cardioneurovasculaires;402792972.27381873;60-74;
+depenses_par_age;76;2019;;;Maladies psychiatriques;258612535.56737456;60-74;
+depenses_par_age;76;2019;;;Traitements du risque vasculaire (hors pathologies);148553907.32808235;60-74;
+depenses_par_age;76;2019;;;Traitements psychotropes (hors pathologies);118404374.48090886;60-74;
+depenses_par_age;76;2019;;;Maladies inflammatoires ou rares ou infection VIH;106608091.83790335;60-74;
+depenses_par_age;76;2019;;;Maladies neurologiques;92062493.08000685;60-74;
+depenses_par_age;76;2019;;;Insuffisance rénale chronique terminale;84791839.16137853;60-74;
+depenses_par_age;76;2019;;;Maladies cardioneurovasculaires;463583169.56404525;75-89;
+depenses_par_age;76;2019;;;Cancers;410760066.4199848;75-89;
+depenses_par_age;76;2019;;;Maladies neurologiques;181709191.24488384;75-89;
+depenses_par_age;76;2019;;;Maladies psychiatriques;136807620.7491028;75-89;
+depenses_par_age;76;2019;;;Traitements psychotropes (hors pathologies);108072079.60399728;75-89;
+depenses_par_age;76;2019;;;Traitements du risque vasculaire (hors pathologies);99137544.47777478;75-89;
+depenses_par_age;76;2019;;;Insuffisance rénale chronique terminale;70801185.69975108;75-89;
+depenses_par_age;76;2019;;;Maladies inflammatoires ou rares ou infection VIH;64031159.55790552;75-89;
+depenses_par_age;76;2019;;;Maladies cardioneurovasculaires;134434604.7559514;90+;
+depenses_par_age;76;2019;;;Maladies neurologiques;83296608.67367841;90+;
+depenses_par_age;76;2019;;;Cancers;76078926.86913055;90+;
+depenses_par_age;76;2019;;;Maladies psychiatriques;33416879.876941513;90+;
+depenses_par_age;76;2019;;;Traitements psychotropes (hors pathologies);31102150.95785064;90+;
+depenses_par_age;76;2019;;;Traitements du risque vasculaire (hors pathologies);16738837.380117197;90+;
+depenses_par_age;76;2019;;;Maladies inflammatoires ou rares ou infection VIH;9598359.223670255;90+;
+depenses_par_age;76;2019;;;Insuffisance rénale chronique terminale;7489945.792588437;90+;
+depenses_par_sexe;76;2019;;;Cancers;602309335.8856786;;Homme
+depenses_par_sexe;76;2019;;;Cancers;638510533.2529638;;Femme
+depenses_par_sexe;76;2019;;;Maladies cardioneurovasculaires;707254800.7189869;;Homme
+depenses_par_sexe;76;2019;;;Maladies cardioneurovasculaires;479003469.7560941;;Femme
+depenses_par_sexe;76;2019;;;Maladies neurologiques;208365762.5655456;;Homme
+depenses_par_sexe;76;2019;;;Maladies neurologiques;281557446.222795;;Femme
+depenses_par_sexe;76;2019;;;Maladies psychiatriques;489720110.26155883;;Homme
+depenses_par_sexe;76;2019;;;Maladies psychiatriques;580007712.6204878;;Femme
+depenses_par_sexe;76;2019;;;Traitements psychotropes (hors pathologies);137558797.3111082;;Homme
+depenses_par_sexe;76;2019;;;Traitements psychotropes (hors pathologies);264947247.9408677;;Femme
